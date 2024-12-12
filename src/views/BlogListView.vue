@@ -57,7 +57,7 @@ function viewPost(id: number) {
             <td>
                 <button
                 class="btn btn-info btn-sm"
-                @click="viewPost(post.id)"
+                @click="$router.push(`/post/${post.id}`)"
                 :style="{
                   color: 'white',
                   backgroundColor: '#17a2b8',
