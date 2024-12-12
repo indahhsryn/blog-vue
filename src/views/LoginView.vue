@@ -39,10 +39,10 @@
               type="button"
               @click="togglePasswordVisibility"
               class="btn btn-link position-absolute top-50 end-0 translate-middle-y text-muted"
-              style="padding: 0; margin-right: 0.75rem;"
+              style="padding: 0; margin-right: 1rem; margin-left: 0.5rem; width: 2.5rem; height: 2.5rem; text-align: center;"
             >
-              <span v-if="showPassword">👁️</span>
-              <span v-else>🙈</span>
+              <span v-if="showPassword" class="fs-5">👁️</span>
+              <span v-else class="fs-5">🙈</span>
             </button>
           </div>
   
@@ -69,12 +69,7 @@
           @click="mockGoogleLogin"
           class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center"
         >
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
-            alt="Google Logo"
-            class="me-2"
-            style="width: 20px; height: 20px;"
-          />
+        
           Log in with Google
         </button>
       </div>
@@ -128,5 +123,9 @@
   
   button {
     transition: background-color 0.2s ease-in-out;
+  }
+  
+  .fs-5 {
+    font-size: 1.25rem; /* Adjust size for visibility */
   }
   </style>

@@ -1,4 +1,3 @@
-<!-- BlogDetailView.vue -->
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
@@ -23,72 +22,66 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="container mt-5">
+  <div class="container my-5">
     <div v-if="isLoading" class="text-center">
-        <h3>Detail Blog</h3>
-      <p>Loading...</p>
+      <h3 class="mb-3">Detail Blog</h3>
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
 
-    <div v-else-if="post" class="card">
-<center>       <b> <h3>Detail Blog</h3></b></center><br>
-
-      <div class="card-header">
-
-        <h2>{{ post.title }}</h2>
+    <div v-else-if="post" class="card shadow-sm">
+      <div class="card-header bg-light text-center">
+        <h3 class="fw-bold mb-0">Detail Blog</h3>
       </div>
-
       <div class="card-body">
-        <p>{{ post.body }}</p>
+        <h5 class="card-title">{{ post.title }}</h5>
+        <p class="card-text text-justify">{{ post.body }}</p>
       </div>
     </div>
 
     <div v-else>
-      <p>Post tidak ditemukan.</p>
+      <div class="alert alert-warning text-center" role="alert">
+        <strong>Post tidak ditemukan!</strong>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+/* Maksimalkan ukuran kontainer */
 .container {
   max-width: 800px;
-  padding: 20px;
   margin: auto;
+  padding: 20px;
 }
 
+/* Buat card lebih menarik */
 .card {
-  animation: fadeIn 0.5s ease-in;
-  margin: 20px;
-  padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  transition: transform 0.2s;
-}
-
-.card:hover {
-  transform: scale(1.05);
+  overflow: hidden;
 }
 
 .card-header {
-  background-color: #e0e0e0;
   padding: 15px;
-  text-align: center;
-  font-weight: bold;
+  font-size: 1.25rem;
 }
 
 .card-body {
-  padding: 10px;
-  font-size: 16px;
-  line-height: 1.5;
+  padding: 20px;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
+/* Responsif untuk mobile */
+@media (max-width: 768px) {
+  .card-body {
+    font-size: 0.9rem;
+    padding: 15px;
   }
-  to {
-    opacity: 1;
-    transform: scale(1);
+
+  .card-header {
+    font-size: 1.1rem;
   }
 }
 </style>
