@@ -11,8 +11,8 @@ import HelloWorld from './components/HelloWorld.vue'
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/blog">Blog</RouterLink>
+        <RouterLink to="/about">Login</RouterLink>
+        <RouterLink to="/blog">Cari Blog</RouterLink>
       </nav>
     </div>
   </header>
@@ -39,7 +39,7 @@ nav {
 }
 
 nav a.router-link-exact-active {
-  color: var(--color-text);
+  color: red;
 }
 
 nav a.router-link-exact-active:hover {
