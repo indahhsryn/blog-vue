@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useBlogStore } from '@/stores/blog.store';
 
 const searchQuery = ref('');
@@ -7,13 +7,31 @@ const isLoading = ref(false);
 const blogStore = useBlogStore();
 const searchResults = ref([]);
 
+const currentPage = ref(1);
+const postsPerPage = 6;
+
 const searchPosts = async () => {
   isLoading.value = true;
   await blogStore.fetchPosts();
   searchResults.value = blogStore.posts.filter(post =>
     post.title.toLowerCase().includes(searchQuery.value.toLowerCase())
   );
+  currentPage.value = 1;
   isLoading.value = false;
+};
+
+const totalPages = computed(() => Math.ceil(searchResults.value.length / postsPerPage));
+
+const paginatedResults = computed(() => {
+  const start = (currentPage.value - 1) * postsPerPage;
+  const end = start + postsPerPage;
+  return searchResults.value.slice(start, end);
+});
+
+const goToPage = (page) => {
+  if (page >= 1 && page <= totalPages.value) {
+    currentPage.value = page;
+  }
 };
 </script>
 
@@ -41,9 +59,9 @@ const searchPosts = async () => {
 
     <!-- Hasil Pencarian -->
     <div v-else>
-      <div v-if="searchResults.length" class="row gy-4">
+      <div v-if="paginatedResults.length" class="row gy-4">
         <div
-          v-for="post in searchResults"
+          v-for="post in paginatedResults"
           :key="post.id"
           class="col-12 col-md-6 col-lg-4"
         >
@@ -59,17 +77,29 @@ const searchPosts = async () => {
           </div>
         </div>
       </div>
-      <p v-else class="text-center mt-4 text-muted">Tidak ada hasil ditemukan.</p>
+
+      <!-- Pagination -->
+      <div v-if="totalPages > 1" class="pagination-container mt-4">
+        <button
+          v-for="page in totalPages"
+          :key="page"
+          @click="goToPage(page)"
+          :class="{ active: currentPage === page }"
+          class="btn btn-outline-primary btn-sm mx-1"
+        >
+          {{ page }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-/* Tambahkan margin dan gaya pencarian */
 .container {
   max-width: 800px;
 }
 
+/* Card Responsif */
 .card {
   border-radius: 10px;
   transition: transform 0.2s ease-in-out;
@@ -79,14 +109,33 @@ const searchPosts = async () => {
   transform: scale(1.05);
 }
 
-/* Gaya responsif tambahan */
-@media (max-width: 768px) {
-  .card {
-    font-size: 0.9rem;
-  }
+/* Pagination Horizontal Scroll untuk Mobile */
+.pagination-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 0 10px;
+  justify-content: center;
+  align-items: center;
+}
 
-  .card-header h5 {
-    font-size: 1rem;
-  }
+.btn-outline-primary {
+  font-weight: bold;
+  padding: 8px 12px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-outline-primary:hover {
+  background-color: #e7f3fe;
+}
+
+.btn-outline-primary.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Pastikan Scroll tidak Mengganggu Layout */
+.btn-outline-primary {
+  white-space: nowrap;
+  margin: 5px;
 }
 </style>

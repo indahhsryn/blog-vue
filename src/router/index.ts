@@ -28,6 +28,12 @@ const router = createRouter({
       name: 'Dashboard',
       component: () => import('../views/Dashboard.vue'),
       meta: { requiresAuth: true } 
+    },
+    {
+      path: '/tambah',
+      name: 'Tambah Data',
+      component: () => import('../views/TambahBlogView.vue'),
+      meta: { requiresAuth: true } 
     }
   ],
 })
