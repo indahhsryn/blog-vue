@@ -10,7 +10,6 @@
               </div>
             </div>
   
-            <button @click="logout" class="btn btn-outline-danger ms-3">Logout</button>
           </div>
         </nav>
       <h2>CRUD Blog</h2>
@@ -59,7 +58,13 @@
   
   const baseUrl = 'https://jsonplaceholder.typicode.com/posts'
   
-  const blogs = ref([])
+  interface Blog {
+    id: number
+    title: string
+    body: string
+  }
+  
+  const blogs = ref<Blog[]>([])
   const newTitle = ref('')
   const newBody = ref('')
   const currentPage = ref(1)
@@ -69,7 +74,12 @@
   const getBlogs = async () => {
     try {
       const res = await fetch(baseUrl)
-      blogs.value = await res.json()
+      const data = await res.json()
+      blogs.value = data.map((item: any) => ({
+        id: item.id,
+        title: item.title,
+        body: item.body,
+      }))
     } catch (error) {
       console.error('Failed fetching blog data', error)
     }
@@ -82,51 +92,46 @@
     return blogs.value.slice(start, end)
   })
   
-  // Menghitung jumlah halaman
-  const totalPages = computed(() => {
-    return Math.ceil(blogs.value.length / blogsPerPage)
-  })
+  const totalPages = computed(() => Math.ceil(blogs.value.length / blogsPerPage))
   
-  // Menambah Blog (POST) - Mock Action
-  const addBlog = async () => {
+  // Menambah Blog Baru
+  const addBlog = () => {
     if (!newTitle.value || !newBody.value) return alert('Isi semua bidang!')
   
-    const newBlog = {
+    const newBlog: Blog = {
+      id: Date.now(),
       title: newTitle.value,
       body: newBody.value,
     }
   
     console.log('Tambah Blog', newBlog)
-  
-    newBlog.id = Date.now()  // Menghasilkan ID unik sederhana
     blogs.value.unshift(newBlog)
   
     newTitle.value = ''
     newBody.value = ''
   }
   
-  // Mengedit Konten Blog (PUT) - Mock Action
-  const editBlog = async (id) => {
+  // Mengedit Blog
+  const editBlog = (id: number) => {
     const title = prompt('Update Judul Blog:')
     const body = prompt('Update Konten Blog:')
   
     if (title && body) {
       const updatedBlog = { title, body }
-      blogs.value = blogs.value.map(blog => blog.id === id ? { ...blog, ...updatedBlog } : blog)
-  
+      blogs.value = blogs.value.map(blog =>
+        blog.id === id ? { ...blog, ...updatedBlog } : blog
+      )
       console.log(`Update id=${id}`, updatedBlog)
     }
   }
   
   // Menghapus Blog (DELETE) - Validasi Konfirmasi
-  const deleteBlog = async (id) => {
+  const deleteBlog = async (id: number) => {
     const confirmed = window.confirm('Apakah Anda yakin ingin menghapus blog ini?')
   
     if (confirmed) {
       blogs.value = blogs.value.filter(blog => blog.id !== id)
-  
       console.log(`Blog ID ${id} dihapus`)
-  
       alert('Data berhasil dihapus')
     }
   }
