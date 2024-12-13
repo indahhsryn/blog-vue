@@ -1,7 +1,7 @@
 # blog
 
 # Halaman public bisa diakses di
-
+https://blogappvue.netlify.app/
 
 ## Recommended IDE Setup
 
