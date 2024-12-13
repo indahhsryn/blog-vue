@@ -35,6 +35,7 @@
           </div>
         </div>
   
+        <!-- Pagination -->
         <div class="pagination mt-4">
           <button
             v-for="page in totalPages"
