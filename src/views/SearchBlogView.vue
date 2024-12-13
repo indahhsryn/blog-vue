@@ -78,6 +78,11 @@ const goToPage = (page) => {
         </div>
       </div>
 
+      <!-- Pesan Data Tidak Ditemukan -->
+      <div v-else class="text-center py-5">
+        <p class="text-muted">Tidak ada data yang ditemukan untuk pencarian "{{ searchQuery }}".</p>
+      </div>
+
       <!-- Pagination -->
       <div v-if="totalPages > 1" class="pagination-container mt-4">
         <button

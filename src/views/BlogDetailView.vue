@@ -49,14 +49,12 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-/* Maksimalkan ukuran kontainer */
 .container {
   max-width: 800px;
   margin: auto;
   padding: 20px;
 }
 
-/* Buat card lebih menarik */
 .card {
   border-radius: 10px;
   overflow: hidden;
