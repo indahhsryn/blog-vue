@@ -1,6 +1,5 @@
 <template>
     <div>
-      <!-- Menu jika sudah login -->
       <template v-if="isLoggedIn">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <div class="container-fluid">
@@ -45,6 +44,5 @@
   </script>
   
   <style scoped>
-  /* Custom style jika diperlukan */
   </style>
   

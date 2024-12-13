@@ -40,7 +40,6 @@
           <p class="text-center">Tidak ada data ditemukan.</p>
         </div>
   
-        <!-- Pagination -->
         <div class="pagination mt-4">
           <button
             v-for="page in totalPages"
@@ -68,7 +67,6 @@
   const currentPage = ref(1);
   const postsPerPage = 5;
   
-  // Ambil data saat komponen dimuat
   onMounted(async () => {
     try {
       isLoading.value = true;
@@ -109,7 +107,6 @@
     font-size: 14px;
   }
   
-  /* Untuk Responsif di Mobile */
   @media (max-width: 768px) {
     table {
       font-size: 12px;

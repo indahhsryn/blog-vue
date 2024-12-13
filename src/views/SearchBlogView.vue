@@ -50,14 +50,12 @@ const goToPage = (page) => {
       </div>
     </div>
 
-    <!-- Loading -->
     <div v-if="isLoading" class="text-center">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
 
-    <!-- Hasil Pencarian -->
     <div v-else>
       <div v-if="paginatedResults.length" class="row gy-4">
         <div
@@ -78,12 +76,10 @@ const goToPage = (page) => {
         </div>
       </div>
 
-      <!-- Pesan Data Tidak Ditemukan -->
       <div v-else class="text-center py-5">
         <p class="text-muted">Tidak ada data yang ditemukan untuk pencarian "{{ searchQuery }}".</p>
       </div>
 
-      <!-- Pagination -->
       <div v-if="totalPages > 1" class="pagination-container mt-4">
         <button
           v-for="page in totalPages"
@@ -104,7 +100,6 @@ const goToPage = (page) => {
   max-width: 800px;
 }
 
-/* Card Responsif */
 .card {
   border-radius: 10px;
   transition: transform 0.2s ease-in-out;
@@ -114,7 +109,6 @@ const goToPage = (page) => {
   transform: scale(1.05);
 }
 
-/* Pagination Horizontal Scroll untuk Mobile */
 .pagination-container {
   display: flex;
   overflow-x: auto;
@@ -138,7 +132,6 @@ const goToPage = (page) => {
   color: #fff;
 }
 
-/* Pastikan Scroll tidak Mengganggu Layout */
 .btn-outline-primary {
   white-space: nowrap;
   margin: 5px;

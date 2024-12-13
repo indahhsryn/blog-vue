@@ -71,7 +71,6 @@ onMounted(async () => {
   line-height: 1.6;
 }
 
-/* Responsif untuk mobile */
 @media (max-width: 768px) {
   .card-body {
     font-size: 0.9rem;

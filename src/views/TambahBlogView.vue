@@ -15,14 +15,12 @@
         </nav>
       <h2>CRUD Blog</h2>
   
-      <!-- Form untuk menambah/edit blog -->
       <div class="mb-3">
         <input v-model="newTitle" placeholder="Judul Blog" class="form-control mb-2" />
         <textarea v-model="newBody" placeholder="Konten Blog" class="form-control mb-2"></textarea>
         <button @click="addBlog" class="btn btn-primary mt-2">Tambah Blog</button>
       </div>
   
-      <!-- List Blog -->
       <div class="mt-4">
         <h4>Daftar Blog</h4>
         <div v-for="blog in paginatedBlogs" :key="blog.id" class="card mt-2">
@@ -32,13 +30,11 @@
           <div class="card-body">
             <p>{{ blog.body }}</p>
   
-            <!-- Tombol Edit & Delete -->
             <button @click="editBlog(blog.id)" class="btn btn-warning btn-sm mt-2">Edit</button>
             <button @click="deleteBlog(blog.id)" class="btn btn-danger btn-sm mt-2 ms-2">Hapus</button>
           </div>
         </div>
   
-        <!-- Pagination -->
         <div class="pagination mt-4">
           <button
             v-for="page in totalPages"
